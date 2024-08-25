@@ -68,6 +68,9 @@
                             $controller->criarUsuario($nome, $email, $matricula, $senha, $tipo_usuario);
 
                             echo '<div class="alert alert-success mt-3" role="alert">Usuário cadastrado com sucesso!</div>';
+                            echo '<div class="d-grid mt-3">';
+                            echo '<a href="login.php" class="btn btn-secondary">Voltar para Login</a>';
+                            echo '</div>';
                         }
                         ?>
                     </div>
