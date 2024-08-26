@@ -3,6 +3,6 @@ session_start();
 session_destroy();
 
 // Redireciona para a página de login após logout
-header("Location: login.php");
+header("Location: ../index.html");
 exit;
 ?>

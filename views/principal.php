@@ -1,17 +1,17 @@
 <?php
 session_start();
 
-// Verifica se o usuário está autenticado
-if (!isset($_SESSION['usuario_id'])) {
-    header("Location: login.php");
-    exit;
-}
-if (isset($_SESSION['nome'])) {
-    $nome = $_SESSION['nome'];
-} else {
-    $nome = 'Usuário não identificado'; // Ou qualquer valor padrão
-}
+// Verifica se o usuário é um administrador
+$is_admin = isset($_SESSION['email_adm']);
 
+include('../config/connect.inc.php');
+include('../controllers/evento_controller.php');
+
+// Instanciar o EventoController
+$eventoController = new EventoController($pdo);
+
+// Obter todos os eventos
+$eventos = $eventoController->getEventos();
 ?>
 
 <!DOCTYPE html>
@@ -24,9 +24,30 @@ if (isset($_SESSION['nome'])) {
 </head>
 <body>
     <div class="container mt-5">
-        <h1>Bem-vindo, <?= htmlspecialchars($nome); ?>!</h1>
+        <h1>Bem-vindo, <?= htmlspecialchars($_SESSION['nome'] ?? 'Usuário não identificado'); ?>!</h1>
         <p>Você está na página principal.</p>
-        <a href="logout.php" class="btn btn-danger">Sair</a>
+        
+        <h2>Eventos Disponíveis</h2>
+        <?php if (!empty($eventos)): ?>
+            <ul class="list-group">
+                <?php foreach ($eventos as $evento): ?>
+                    <li class="list-group-item">
+                        <h3><?= htmlspecialchars($evento['nome']); ?></h3>
+                        <p><?= htmlspecialchars($evento['descricao']); ?></p>
+                        <a href="cursos.php?evento_id=<?= $evento['id']; ?>" class="btn btn-primary">Ver Cursos</a>
+                        
+                        <?php if ($is_admin): ?>
+                            <a href="editar_evento.php?id=<?= $evento['id']; ?>" class="btn btn-warning">Editar</a>
+                            <a href="excluir_evento.php?id=<?= $evento['id']; ?>" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este evento?');">Excluir</a>
+                        <?php endif; ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php else: ?>
+            <p>Nenhum evento disponível no momento.</p>
+        <?php endif; ?>
+
+        <a href="logout.php" class="btn btn-danger mt-4">Sair</a>
     </div>
 </body>
 </html>
