@@ -9,16 +9,19 @@ if (!isset($_SESSION['email_adm'])) {
     exit;
 }
 
-$evento_id = $_GET['id'];
 $eventoController = new EventoController($pdo);
-$evento = $eventoController->getEventoPorId($evento_id);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Recebe os dados do formulário
     $titulo = $_POST['nome'];
     $descricao = $_POST['descricao'];
     $data = $_POST['data'];
 
-    $eventoController->editarEvento($evento_id, $titulo, $descricao, $data);
+    // Insere o novo evento
+    $stmt = $pdo->prepare('INSERT INTO eventos (nome, descricao, data) VALUES (:nome, :descricao, :data)');
+    $stmt->execute(['nome' => $titulo, 'descricao' => $descricao, 'data' => $data]);
+
+    // Redireciona para a página principal após a criação do evento
     header("Location: principal.php");
     exit;
 }
@@ -29,26 +32,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Evento</title>
+    <title>Criar Evento</title>
     <link href="https://bootswatch.com/5/quartz/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container mt-5">
-        <h1>Editar Evento</h1>
-        <form action="editar_evento.php?id=<?= $evento['id']; ?>" method="post">
+        <h1>Criar Novo Evento</h1>
+        <form action="criar_evento.php" method="post">
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome:</label>
-                <input type="text" id="nome" name="nome" class="form-control" value="<?= htmlspecialchars($evento['nome']); ?>" required>
+                <input type="text" id="nome" name="nome" class="form-control" required>
             </div>
             <div class="mb-3">
                 <label for="descricao" class="form-label">Descrição:</label>
-                <textarea id="descricao" name="descricao" class="form-control" required><?= htmlspecialchars($evento['descricao']); ?></textarea>
+                <textarea id="descricao" name="descricao" class="form-control" required></textarea>
             </div>
             <div class="mb-3">
                 <label for="data" class="form-label">Data:</label>
-                <input type="date" id="data" name="data" class="form-control" value="<?= htmlspecialchars($evento['data']); ?>" required>
+                <input type="date" id="data" name="data" class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            <button type="submit" class="btn btn-primary">Criar Evento</button>
         </form>
     </div>
 </body>

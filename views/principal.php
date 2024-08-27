@@ -20,7 +20,7 @@ $eventos = $eventoController->getEventos();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Principal</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://bootswatch.com/5/quartz/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container mt-5">
@@ -34,6 +34,7 @@ $eventos = $eventoController->getEventos();
                     <li class="list-group-item">
                         <h3><?= htmlspecialchars($evento['nome']); ?></h3>
                         <p><?= htmlspecialchars($evento['descricao']); ?></p>
+                        <p><strong>Data:</strong> <?= htmlspecialchars($evento['data']); ?></p> 
                         <a href="cursos.php?evento_id=<?= $evento['id']; ?>" class="btn btn-primary">Ver Cursos</a>
                         
                         <?php if ($is_admin): ?>
@@ -45,6 +46,10 @@ $eventos = $eventoController->getEventos();
             </ul>
         <?php else: ?>
             <p>Nenhum evento disponível no momento.</p>
+        <?php endif; ?>
+
+        <?php if ($is_admin): ?>
+            <a href="criar_evento.php" class="btn btn-success mt-4">Criar Novo Evento</a>
         <?php endif; ?>
 
         <a href="logout.php" class="btn btn-danger mt-4">Sair</a>
