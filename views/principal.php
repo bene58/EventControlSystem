@@ -20,9 +20,57 @@ $eventos = $eventoController->getEventos();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Principal</title>
-    <link href="https://bootswatch.com/5/quartz/bootstrap.min.css" rel="stylesheet">
+    <link href="https://bootswatch.com/5/slate/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            flex: 1;
+        }
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+        .navbar {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
+    <!-- Cabeçalho -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="index.php">
+                    <img src="logo.png" alt="Eventuxos Logo" style="max-width: 150px;">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.php">Home</a>
+                        </li>
+                        <?php if ($is_admin): ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="criar_evento.php">Criar Evento</a>
+                            </li>
+                        <?php endif; ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout.php">Sair</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
     <div class="container mt-5">
         <h1>Bem-vindo, <?= htmlspecialchars($_SESSION['nome'] ?? 'Usuário não identificado'); ?>!</h1>
         <p>Você está na página principal.</p>
@@ -54,5 +102,20 @@ $eventos = $eventoController->getEventos();
 
         <a href="logout.php" class="btn btn-danger mt-4">Sair</a>
     </div>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="container">
+            <h5>Integrantes</h5>
+            <ul class="list-unstyled">
+                <li>Aline Luiza Souza | aline.l.souza@ufv.br | 6698</li>
+                <li>Luiz Benedito Alves Neto | luiz.b.neto@ufv.br | 7557</li>
+                <li>Mariana de Deus Castro | mariana.d.castro@ufv.br | 7583</li>
+            </ul>
+            <p>&copy; <?= date('Y'); ?> Eventuxos. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

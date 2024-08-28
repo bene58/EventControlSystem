@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Evento</title>
-    <link href="https://bootswatch.com/5/quartz/bootstrap.min.css" rel="stylesheet">
+    <link href="https://bootswatch.com/5/slate/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container mt-5">

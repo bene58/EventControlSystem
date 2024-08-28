@@ -30,3 +30,12 @@ CREATE TABLE administradores (
     email VARCHAR(255) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL
 );
+
+CREATE TABLE inscricoes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    curso_id INT NOT NULL,
+    usuario_id INT NOT NULL,
+    FOREIGN KEY (curso_id) REFERENCES cursos(id),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+);
+
