@@ -40,9 +40,25 @@ class EventoController {
         return $stmt->execute(['nome' => $titulo, 'descricao' => $descricao, 'data' => $data, 'id' => $id]);
     }
 
-    // Função para excluir um evento
-    public function excluirEvento($id) {
-        $stmt = $this->pdo->prepare('DELETE FROM eventos WHERE id = :id');
-        return $stmt->execute(['id' => $id]);
+    public function excluirEvento($evento_id) {
+        // Primeiro, exclua os cursos associados ao evento
+        // Obtenha os IDs dos cursos associados
+        $stmt = $this->pdo->prepare('SELECT id FROM cursos WHERE evento_id = :evento_id');
+        $stmt->execute(['evento_id' => $evento_id]);
+        $cursos = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+        foreach ($cursos as $curso_id) {
+            // Exclua inscrições associadas ao curso
+            $stmt = $this->pdo->prepare('DELETE FROM inscricoes WHERE curso_id = :curso_id');
+            $stmt->execute(['curso_id' => $curso_id]);
+
+            // Exclua o curso
+            $stmt = $this->pdo->prepare('DELETE FROM cursos WHERE id = :curso_id');
+            $stmt->execute(['curso_id' => $curso_id]);
+        }
+
+        // Agora, exclua o evento
+        $stmt = $this->pdo->prepare('DELETE FROM eventos WHERE id = :evento_id');
+        $stmt->execute(['evento_id' => $evento_id]);
     }
 }

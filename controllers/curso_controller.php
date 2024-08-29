@@ -65,5 +65,21 @@ class CursoController {
         $stmt->execute();
         return $stmt->rowCount() > 0;
     }
+
+
+    public function editarCurso($curso_id, $titulo, $descricao, $data, $horario) {
+        $stmt = $this->pdo->prepare("
+            UPDATE cursos 
+            SET titulo = :titulo, descricao = :descricao, data = :data, horario = :horario 
+            WHERE id = :curso_id
+        ");
+        $stmt->execute([
+            'titulo' => $titulo,
+            'descricao' => $descricao,
+            'data' => $data,
+            'horario' => $horario,
+            'curso_id' => $curso_id
+        ]);
+    }
 }
 ?>

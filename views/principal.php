@@ -53,23 +53,25 @@ $eventos = $eventoController->getEventos();
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.php">Home</a>
-                        </li>
+                    <ul class="navbar-nav ms-auto">
+                        <?php if (!$is_admin): ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="editar_perfil.php">
+                                    <i class="bi bi-person-circle"></i> Perfil
+                                </a>
+                            </li>
+                        <?php endif; ?> 
                         <?php if ($is_admin): ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="criar_evento.php">Criar Evento</a>
+                                <a class="nav-link" href="relatorios.php">Relatórios</a>
                             </li>
                         <?php endif; ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="logout.php">Sair</a>
-                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+
 
     <div class="container mt-5">
         <h1>Bem-vindo, <?= htmlspecialchars($_SESSION['nome'] ?? 'Usuário não identificado'); ?>!</h1>
