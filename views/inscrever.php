@@ -11,9 +11,10 @@ $cursoController = new CursoController($pdo);
 
 if ($curso_id && $usuario_id) {
     $resultado = $cursoController->inscreverParticipante($curso_id, $usuario_id);
-    echo "<script>alert('$resultado');</script>";
+    header('Location: cursos.php?evento_id=' . $evento_id . '&mensagem=' . urlencode($resultado));
+    exit;
 }
 
-// Redireciona de volta para a página de cursos do evento
+// Se não houver curso_id ou usuario_id, redireciona de volta
 header('Location: cursos.php?evento_id=' . $evento_id);
 exit;

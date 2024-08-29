@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <small class="form-text text-muted">A matrícula não pode ser alterada.</small>
             </div>
             <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-            <a href="perfil.php" class="btn btn-secondary">Cancelar</a>
+            <a href="principal.php" class="btn btn-secondary">Voltar</a>
         </form>
     </div>
 

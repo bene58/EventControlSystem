@@ -4,6 +4,7 @@ include('../config/connect.inc.php');
 include('../controllers/curso_controller.php');
 
 $evento_id = $_GET['evento_id'] ?? null;
+$mensagem = $_GET['mensagem'] ?? null; // Captura a mensagem da URL
 $cursoController = new CursoController($pdo);
 
 // Verifica se o usuário está logado
@@ -33,6 +34,13 @@ if ($evento_id) {
 <body>
     <div class="container mt-5">
         <h1>Cursos Disponíveis</h1>
+
+        <!-- Exibe a mensagem se houver -->
+        <?php if ($mensagem): ?>
+            <div class="alert alert-info">
+                <?= htmlspecialchars($mensagem); ?>
+            </div>
+        <?php endif; ?>
 
         <?php if (!empty($cursos)): ?>
             <ul class="list-group">
