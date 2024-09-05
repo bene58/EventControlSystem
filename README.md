@@ -11,7 +11,7 @@
 ## Tecnologias Utilizadas
 - PHP (com PDO)
 - MySQL
-- Bootstrap (tema Quartz)
+- Bootstrap 
 - HTML5, CSS3, JavaScript
 
 ## Como Usar
